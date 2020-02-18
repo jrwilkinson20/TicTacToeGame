@@ -51,9 +51,9 @@ public class TicTacToe extends Activity implements ITicTacToe {
     public void onClickMove(View view){
         System.out.println("onclickmove");
         this.setMove(1,buttons.indexOf(findViewById(view.getId())));
-        if(rounds <= 8) {
-            this.setMove(2, this.getComputerMove());
-        }
+
+        this.setMove(2, this.getComputerMove());
+
 
         display();
         if(checkForWinner() == TIE){
@@ -156,26 +156,8 @@ public class TicTacToe extends Activity implements ITicTacToe {
     //Compute the computer's next move.
     @Override
     public int getComputerMove() {
-        System.out.println("getcomputermove");
-        int location = -1;
-/*
-        //choose a corner
-        if(rounds == 1){
-            if(board[0][0] == EMPTY){
-                location = 0;
-            } else if (board[0][2] == EMPTY){
-                location = 2;
-            } else if (board[2][0] == EMPTY){
-                location = 6;
-            } else if (board[2][2] == EMPTY){
-                location = 8;
-                //choose middle
-            } else if(board[1][1] == EMPTY){
-                location = 4;
-            }
-        }
 
- */
+        int location = -1;
 
         if (location == -1) {
             this.tryToBlock(1);
