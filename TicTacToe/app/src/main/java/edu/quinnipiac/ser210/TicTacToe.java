@@ -49,16 +49,18 @@ public class TicTacToe extends Activity implements ITicTacToe {
     }
 
     public void onClickMove(View view){
+        System.out.println("onclickmove");
         this.setMove(1,buttons.indexOf(findViewById(view.getId())));
-        if(rounds <= 8){
-            this.setMove(2,this.getComputerMove());
+        if(rounds <= 8) {
+            this.setMove(2, this.getComputerMove());
         }
+
         display();
-        if(checkForWinner() == 1){
+        if(checkForWinner() == TIE){
             showDialog(this,"Tie","It's a tie!");
-        } else if(checkForWinner() == 2){
+        } else if(checkForWinner() == CROSS_WON){
             showDialog(this,"Winner","You won!");
-        } else if(checkForWinner() == 3){
+        } else if(checkForWinner() == NOUGHT_WON){
             showDialog(this,"Loser","You lose!");
         }
     }
@@ -92,6 +94,7 @@ public class TicTacToe extends Activity implements ITicTacToe {
         builder.show();
     }
     public void display(){
+        System.out.println("display");
         int z = 0;
         for(int i = 0; i < ROWS; i++){
             for(int j = 0; j < COLS; j++){
@@ -132,7 +135,7 @@ public class TicTacToe extends Activity implements ITicTacToe {
     //Set the move of the player, or the computer.
     @Override
     public void setMove(int player, int location) {
-
+        System.out.println("csetmove");
         board[(int)(location/3)][location%3] = player;
         //Add a round each move.
         rounds++;
@@ -153,6 +156,7 @@ public class TicTacToe extends Activity implements ITicTacToe {
     //Compute the computer's next move.
     @Override
     public int getComputerMove() {
+        System.out.println("getcomputermove");
         int location = -1;
 /*
         //choose a corner
@@ -187,123 +191,123 @@ public class TicTacToe extends Activity implements ITicTacToe {
     //Check if there is a winner after each round.
     @Override
     public int checkForWinner() {
-        int winner = PLAYING;
+        System.out.println("checkforwinner");
+
         //Check if the top row is the same.
         if((board[0][0] == board[0][1]) && (board[0][1] == board[0][2]))
         {
             //check which player won(cross)
-            if(board[0][0] == 1)
+            if(board[0][0] == CROSS)
             {
-                winner = CROSS_WON;
+                return CROSS_WON;
             }
             //check which player won (nought)
-            else if(board[0][0] == 2)
+            else if(board[0][0] == NOUGHT)
             {
-                winner = NOUGHT_WON;
+                return NOUGHT_WON;
             }
         }
         //Check the middle row
         if((board[1][0] == board[1][1]) && (board[1][1] == board[1][2]))
         {
-            if(board[1][0] == 1)
+            if(board[1][0] == CROSS)
             {
-                winner = CROSS_WON;
+               return CROSS_WON;
             }
-            else if(board[1][0] == 2)
+            else if(board[1][0] == NOUGHT)
             {
-                winner = NOUGHT_WON;
+                return NOUGHT_WON;
             }
         }
         //Check bottom row for winner
         if((board[2][0] == board[2][1]) && (board[2][1] == board[2][2]))
         {
-            if(board[2][0] == 1)
+            if(board[2][0] == CROSS)
             {
-                winner = CROSS_WON;
+                return CROSS_WON;
             }
-            else if(board[2][0] == 2)
+            else if(board[2][0] == NOUGHT)
             {
-                winner = NOUGHT_WON;
+                return NOUGHT_WON;
             }
         }
         //Check left column for winner.
         if((board[0][0] == board[1][0]) && (board[1][0] == board[2][0]))
         {
-            if(board[0][0] == 1)
+            if(board[0][0] == CROSS)
             {
-                winner = CROSS_WON;
+                return CROSS_WON;
             }
-            else if(board[0][0] == 2)
+            else if(board[0][0] == NOUGHT)
             {
-                winner = NOUGHT_WON;
+                return NOUGHT_WON;
             }
         }
         //Check middle column for winner.
         if((board[0][1] == board[1][1]) && (board[1][1] == board[2][1]))
         {
-            if(board[0][1] == 1)
+            if(board[0][1] == CROSS)
             {
-                winner = CROSS_WON;
+               return CROSS_WON;
             }
-            else if(board[0][1] == 2)
+            else if(board[0][1] == NOUGHT)
             {
-                winner = NOUGHT_WON;
+                return NOUGHT_WON;
             }
         }
         //Check right column for winner.
         if((board[0][2] == board[1][2]) && (board[1][2] == board[2][2]))
         {
-            if(board[0][2] == 1)
+            if(board[0][2] == CROSS)
             {
-                winner = CROSS_WON;
+                return CROSS_WON;
             }
-            else if(board[0][2] == 2)
+            else if(board[0][2] == NOUGHT)
             {
-                winner = NOUGHT_WON;
+                return NOUGHT_WON;
             }
         }
         //Check the diagonals for a winner.
         if((board[0][0] == board[1][1]) && (board[1][1] == board[2][2]))
         {
-            if(board[0][0] == 1)
+            if(board[0][0] == CROSS)
             {
-                winner = CROSS_WON;
+                return CROSS_WON;
             }
-            else if(board[0][0] == 2)
+            else if(board[0][0] == NOUGHT)
             {
-                winner = NOUGHT_WON
-                ;
+                return NOUGHT_WON;
             }
         }
         //Check diagonals for a winner.
         if((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]))
         {
-            if(board[0][2] == 1)
+            if(board[0][2] == CROSS)
             {
-                winner = CROSS_WON;
+                return CROSS_WON;
             }
-            else if(board[0][2] == 2)
+            else if(board[0][2] == NOUGHT)
             {
-                winner = NOUGHT_WON;
+               return NOUGHT_WON;
             }
         }
         //Check if the board has been filled or there is one empty but no winners.
-        if (rounds == 8) {
+        if ((rounds >= 8)) {
             //its a tie
-            winner = TIE;
+            return TIE;
             //if there are no more moves its a tie.
-        } else if ((rounds == 7) && (winner == 0)) {
-            winner = TIE;
+        } else if ((rounds == 7)) {
+            return TIE;
         }
-        //continue playing
-        return winner;
+        return PLAYING;
     }
     private int tryToBlock(int direction) {
+        System.out.println("trytoblock");
         int emptyRow = -1;
         int emptyCol = -1;
-        for (int i = 0; i <= ROWS; i++) {
+        for (int i = 0; i < ROWS; i++) {
             int countfull = 0;
-            for (int j = 0; j < ROWS; j++) {
+            for (int j = 0; j < COLS; j++) {
                 if (direction == 1) {
                     if (checkCell(i, j, symbol, board)) {
                         countfull++;
@@ -330,6 +334,7 @@ public class TicTacToe extends Activity implements ITicTacToe {
     }
 
     private int tryToBlockDiagonal() {
+        System.out.println("trytobDiag");
         int emptyRow = -1;
         int emptyCol = -1;
         int diagCount = 0;
@@ -350,6 +355,7 @@ public class TicTacToe extends Activity implements ITicTacToe {
     }
 
     private int getLocationFromRowCol(int row, int col){
+        System.out.println("getlocation");
         if(row != -1 && col != -1) {
             return ((row * COLS) + col - COLS - 1);
         } else {
@@ -358,6 +364,7 @@ public class TicTacToe extends Activity implements ITicTacToe {
     }
 
     private boolean checkCell(int row,int col, int symbol, int[][] board){
+        System.out.println("checkcell");
         return (board[row][col] == symbol);
     }
 
