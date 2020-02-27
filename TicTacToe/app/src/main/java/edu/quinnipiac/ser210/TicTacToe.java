@@ -156,19 +156,13 @@ public class TicTacToe extends Activity implements ITicTacToe {
     //Compute the computer's next move.
     @Override
     public int getComputerMove() {
+        int move = (int) (Math.random() * 9);
 
-        int location = -1;
-
-        if (location == -1) {
-            this.tryToBlock(1);
-            location = this.tryToBlock(2);
+        while (board[move / 3][move % 3] != EMPTY) {
+            move = (int) (Math.random() * 9);
         }
-        if (location == -1) {
-            location = this.tryToBlockDiagonal();
-        }
+        return move;
 
-
-        return location;
     }
     //Check if there is a winner after each round.
     @Override
